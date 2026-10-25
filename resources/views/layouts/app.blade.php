@@ -115,6 +115,18 @@
         td { padding: 10px; border: 1px solid #e2e8f0; }
         td:first-child { width: 35%; font-weight: bold; background: #f8fafc; }
 
+        /* ===== Autentikasi ===== */
+        .logout-form { display: inline; margin-left: 16px; }
+        .link-button {
+            background: none;
+            padding: 0;
+            color: white;
+            font-size: inherit;
+        }
+        .link-button:hover { background: none; text-decoration: underline; }
+        .error-text { color: #991b1b; font-size: 13px; margin-top: 4px; }
+        .auth-box { max-width: 480px; margin: 0 auto; }
+
         /* ===== Footer ===== */
         footer {
             background: #1e293b;
@@ -132,7 +144,20 @@
             <h1>LaporBanjir BPBD Kab. Bandung</h1>
             <nav>
                 <a href="{{ route('laporan.form') }}">Form Laporan</a>
-                <a href="{{ route('laporan.daftar') }}">Daftar Laporan</a>
+
+                @auth
+                    <a href="{{ route('laporan.daftar') }}">Daftar Laporan</a>
+                    <a href="{{ route('profil') }}">Profil Petugas</a>
+                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                        @csrf
+                        <button type="submit" class="link-button">Logout</button>
+                    </form>
+                @endauth
+
+                @guest
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                @endguest
             </nav>
         </div>
     </header>
